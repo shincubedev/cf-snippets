@@ -1,3 +1,4 @@
+import { getValueFromDictionary, isNumeric } from "./lib.js";
 function getBoundary (request: Request){
 	let headers = getValueFromDictionary(request, 'headers', 'object', null);
 	
@@ -5,7 +6,7 @@ function getBoundary (request: Request){
 	if (headers){
 		let contentType = getValueFromDictionary(headers, 'content-type', 'string' ,'');
 
-		//e.g. contentType = multipart/form-data; boundary=----WebKitFormBoundaryoooYYT2ZL7qBWf
+		//e.g. contentType = multipart/form-data; boundary=----WebKitFormBoundaryxxxxxxxxxx
 		// we only want the boundary= part.
 
 		const tokens = contentType.split(';');
