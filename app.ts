@@ -1,3 +1,26 @@
+function getBoundary (request: Request){
+	let headers = getValueFromDictionary(request, 'headers', 'object', null);
+	
+	let boundary = "";
+	if (headers){
+		let contentType = getValueFromDictionary(headers, 'content-type', 'string' ,'');
+
+		//e.g. contentType = multipart/form-data; boundary=----WebKitFormBoundaryoooYYT2ZL7qBWf
+		// we only want the boundary= part.
+
+		const tokens = contentType.split(';');
+		const boundaryPrefix = 'boundary=';
+		for (let i = 0; i < tokens.length; i++){
+			tokens[i] = tokens[i].trim(); //important
+			if (tokens[i].startsWith(boundaryPrefix)){
+				boundary = tokens[i].replace(boundaryPrefix, '');
+				break;
+			}
+		}
+	}
+
+    return boundary;
+}
 // "middleware" to parse post parameters
 const xpost = (req:Request, res: Response, next: NextFunction) => {
 
