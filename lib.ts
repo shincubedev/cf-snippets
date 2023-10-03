@@ -25,3 +25,17 @@ export function getValueFromDictionary(dic: any, key: string, type:string, fallb
 		return fallback;
 	}
 }
+
+export function isNumeric(str: string) {
+	if (typeof str != "string") 
+		return false;
+
+	// date like 2023-10-03 will return 2023
+	// but exclude -1 (negative numbers)
+	if (str.includes('-') && !str.startsWith('-')) 
+		return false;
+
+	let value:number|null = parseFloat(str);
+
+	return !isNaN(value);
+}
